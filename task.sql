@@ -7,7 +7,7 @@ CREATE TABLE Products (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(100),
     Description VARCHAR(255),
-    Price DECIMAL(10,2),
+    Price DECIMAL(10, 2),
     WarehouseAmount INT
 );
 
@@ -20,10 +20,10 @@ CREATE TABLE Customers (
     Address VARCHAR(255)
 );
 
--- Таблиця Orders
+-- Таблиця Orders (CustomerID допускає NULL для SET NULL)
 CREATE TABLE Orders (
     ID INT AUTO_INCREMENT PRIMARY KEY,
-    CustomerID INT,
+    CustomerID INT NULL,
     Date DATE,
     FOREIGN KEY (CustomerID) REFERENCES Customers(ID) ON DELETE SET NULL
 );
@@ -33,6 +33,6 @@ CREATE TABLE OrderItems (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     OrderID INT,
     ProductID INT,
-    FOREIGN KEY (OrderID) REFERENCES Orders(ID) ON DELETE SET NULL,
+    FOREIGN KEY (OrderID) REFERENCES Orders(ID) ON DELETE CASCADE,
     FOREIGN KEY (ProductID) REFERENCES Products(ID) ON DELETE SET NULL
 );
